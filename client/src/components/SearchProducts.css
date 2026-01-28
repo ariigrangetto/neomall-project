@@ -1,0 +1,47 @@
+.form-section {
+  justify-content: center;
+  margin: auto;
+  form {
+    display: flex;
+    justify-content: center;
+    margin: auto;
+  }
+
+  input {
+    justify-content: center;
+    border: none;
+    padding: 0.5rem;
+    width: 90%;
+    font-size: 1rem;
+    background-color: rgba(151, 151, 151, 0.158);
+    border-radius: 0.5rem;
+    padding: 0.6rem;
+    align-items: center;
+    text-align: center;
+  }
+
+  button {
+    border: none;
+    cursor: pointer;
+    font-size: 0.9rem;
+  }
+}
+
+.search-section {
+  justify-content: center;
+  margin: auto;
+  display: flex;
+  align-items: center;
+  width: 90%;
+  text-align: center;
+  margin-top: 2rem;
+}
+
+.select-section {
+  padding: 0.5rem;
+  margin: auto;
+  margin-left: 20px;
+  align-items: center;
+
+  justify-content: center;
+}
