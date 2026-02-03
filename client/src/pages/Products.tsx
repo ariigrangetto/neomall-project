@@ -4,7 +4,7 @@ import { Helmet } from "react-helmet";
 import ListOfProducts from "../components/ListOfProducts.tsx";
 import WithoutProducts from "../components/WithoutProducts.tsx";
 import { useLocation } from "react-router";
-import { getProduts } from "../api/product.js";
+import { getProducts } from "../api/product.js";
 
 export default function Products() {
   const [products, setProducts] = useState<Product[]>([]);
@@ -15,7 +15,7 @@ export default function Products() {
     setLoading(true);
     async function FetchData() {
       try {
-        const data = await getProduts();
+        const data = await getProducts();
         console.log(data);
         setProducts(data.products);
       } catch (error) {
