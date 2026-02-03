@@ -1,8 +1,6 @@
 import { Link } from "react-router";
-import { useUrl } from "../Hooks/useUrl.tsx";
-import SearchProducts from "./SearchProducts.tsx";
+import { useUrl } from "../hooks/useUrl.tsx";
 import Pagination from "./Pagination.tsx";
-import Header from "./Header.tsx";
 import "./ListOfProducts.css";
 import useCartActions from "../hooks/cartActions.tsx";
 import useAuth from "../hooks/useAuth.tsx";
@@ -11,15 +9,8 @@ import { MousePointerClick } from "lucide-react";
 export default function ListOfProducts() {
   const { cart, addProduct } = useCartActions();
   const { isAuthenticated } = useAuth();
-  const {
-    handleChangePage,
-    totalPages,
-    handleUpdateInputSearch,
-    totalResult,
-    setFilters,
-    loading,
-    currentPage,
-  } = useUrl();
+  const { handleChangePage, totalPages, totalResult, loading, currentPage } =
+    useUrl();
 
   const findItem = (id: number | string) => {
     const findedProduct = cart.some((item) => item?.product_id === id);
@@ -28,14 +19,10 @@ export default function ListOfProducts() {
     return { text, className };
   };
 
+  console.log(totalResult);
+
   return (
     <>
-      <Header />
-
-      <SearchProducts
-        setFilter={setFilters}
-        onChangeInputValue={handleUpdateInputSearch}
-      />
       {loading ? (
         <p>Loading filtered products</p>
       ) : totalResult?.length > 0 ? (
