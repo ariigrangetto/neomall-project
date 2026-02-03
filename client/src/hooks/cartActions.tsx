@@ -1,5 +1,5 @@
-import { use, useEffect, useState } from "react";
-import { Cart } from "../utils/types";
+import { useEffect, useState } from "react";
+import type { Cart } from "../utils/types.d.ts";
 import {
   addProductToCart,
   decrementProductQuantity,
@@ -7,14 +7,18 @@ import {
   getCart,
   incrementProductQuantity,
 } from "../api/cart.js";
+import useAuth from "./useAuth.js";
 
 export default function useCartActions() {
   const [cart, setCart] = useState<Cart[]>([]);
+  const { isAuthenticated } = useAuth();
 
   async function getProductsInCart() {
     try {
-      const { data } = await getCart();
-      setCart(data);
+      if (isAuthenticated === true) {
+        const { data } = await getCart();
+        setCart(data);
+      }
     } catch (error: any) {
       throw new Error("Error fetching products in cart " + error.message);
     }
