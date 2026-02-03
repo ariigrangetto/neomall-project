@@ -1,20 +1,14 @@
-import { useId, useRef } from "react";
-import type { FiltersType } from "../utils/types.d.ts";
+import { useId, useRef, useState } from "react";
 import "./SearchProducts.css";
 import { Search } from "lucide-react";
+import { useFilters } from "../hooks/useFilters.tsx";
 
-interface SearchProductsProps {
-  setFilter: React.Dispatch<React.SetStateAction<FiltersType>>;
-  onChangeInputValue: (text: string) => void;
-}
-
-export default function SearchProducts({
-  setFilter,
-  onChangeInputValue,
-}: SearchProductsProps) {
+export default function SearchProducts() {
+  const { setFilter } = useFilters();
   const selectId = useId();
   let timeoutId = useRef<null | number>(null);
   const idText = useId();
+  const [text, setText] = useState("");
 
   const handleSelectCategory = (e: React.ChangeEvent<HTMLSelectElement>) => {
     setFilter((prev) => ({
@@ -24,14 +18,18 @@ export default function SearchProducts({
   };
 
   const handleChangeInputSearch = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const text = e.target.value;
+    const title = e.target.value;
+    setText(title);
 
     if (timeoutId.current) {
       clearTimeout(timeoutId.current);
     }
 
     timeoutId.current = setTimeout(() => {
-      onChangeInputValue(text);
+      setFilter((prev) => ({
+        ...prev,
+        title,
+      }));
     }, 500);
   };
 
@@ -46,6 +44,7 @@ export default function SearchProducts({
           <form onSubmit={handleSubmit} className='filter-form'>
             <input
               type='text'
+              value={text}
               placeholder='Essence Mascara Lash Princess'
               onChange={handleChangeInputSearch}
               name={idText}
