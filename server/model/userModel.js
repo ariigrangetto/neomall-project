@@ -37,10 +37,11 @@ export class UserModel {
           [userId],
         );
       }
-      connection.release();
       return { userId, userCreated, rows, response };
     } catch (error) {
       throw error;
+    } finally {
+      connection.release();
     }
   }
 
@@ -67,10 +68,11 @@ export class UserModel {
           );
         }
       }
-      connection.release();
       return { rows, isMatchPassword, userId, response };
     } catch (error) {
       throw error;
+    } finally {
+      connection.release();
     }
   }
 
@@ -85,10 +87,11 @@ export class UserModel {
               `,
         [id],
       );
-      connection.release();
       return foundUser;
     } catch (error) {
       throw error;
+    } finally {
+      connection.release();
     }
   }
 
@@ -104,10 +107,11 @@ export class UserModel {
         [userId],
       );
 
-      connection.release();
       return foundUser;
     } catch (error) {
       throw error;
+    } finally {
+      connection.release();
     }
   }
 }

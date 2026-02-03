@@ -23,10 +23,11 @@ export class CartModel {
           WHERE user_id = UUID_TO_BIN(?)`,
         [id],
       );
-      connection.release();
       return result;
     } catch (error) {
       throw error;
+    } finally {
+      connection.release();
     }
   }
 
@@ -42,10 +43,11 @@ export class CartModel {
           `,
         [userId, id],
       );
-      connection.release();
       return result;
     } catch (error) {
       throw error;
+    } finally {
+      connection.release();
     }
   }
 
@@ -60,10 +62,11 @@ export class CartModel {
                   `,
         [userId, id],
       );
-      connection.release();
       return result;
     } catch (error) {
       throw error;
+    } finally {
+      connection.release();
     }
   }
 
@@ -79,10 +82,11 @@ export class CartModel {
                   `,
         [userId, id],
       );
-      connection.release();
       return result;
     } catch (error) {
       throw error;
+    } finally {
+      connection.release();
     }
   }
 
@@ -97,10 +101,11 @@ export class CartModel {
           `,
         [userId, id],
       );
-      connection.release();
       return result;
     } catch (error) {
       throw error;
+    } finally {
+      connection.release();
     }
   }
 }

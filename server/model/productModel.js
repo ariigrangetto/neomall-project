@@ -34,10 +34,11 @@ export class ProductModel {
           LEFT JOIN comments ON id = product_id
           GROUP BY id
           `);
-      connection.release();
       return result;
     } catch (error) {
       throw error;
+    } finally {
+      connection.release();
     }
   }
 
@@ -78,10 +79,11 @@ export class ProductModel {
           `,
         [id],
       );
-      connection.release();
       return response;
     } catch (error) {
       throw error;
+    } finally {
+      connection.release();
     }
   }
 
@@ -101,10 +103,11 @@ export class ProductModel {
       }
 
       const [response] = await connection.query(query, values);
-      connection.release();
       return response;
     } catch (error) {
       throw error;
+    } finally {
+      connection.release();
     }
   }
 }
