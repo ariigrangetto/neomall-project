@@ -6,6 +6,8 @@ import Login from "./pages/Login.tsx";
 import Register from "./pages/Register.tsx";
 import ProtectedPath from "./components/ProtectedPath.tsx";
 import Profile from "./pages/Profile.tsx";
+import Header from "./components/Header.tsx";
+import { MainLayout } from "./layout/MainLayout.tsx";
 
 const Details = lazy(() => import("./pages/Details.tsx"));
 const NotFound = lazy(() => import("./pages/404.tsx"));
@@ -20,9 +22,10 @@ function App() {
           <Route path='/' element={<Home />} />
           <Route path='/login' element={<Login />} />
           <Route path='/register' element={<Register />} />
-
-          <Route path='/products' element={<Products />} />
-          <Route path='/products/details/:id' element={<Details />} />
+          <Route element={<MainLayout />}>
+            <Route path='/products' element={<Products />} />
+            <Route path='/products/details/:id' element={<Details />} />
+          </Route>
           <Route element={<ProtectedPath />}>
             <Route path='/cart' element={<Cart />} />
             <Route path='/profile' element={<Profile />} />
