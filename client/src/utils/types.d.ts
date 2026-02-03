@@ -52,6 +52,7 @@ export enum Category {
 
 interface FiltersType {
   category: string;
+  title: string;
 }
 
 export enum CartActionType {
