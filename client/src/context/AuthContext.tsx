@@ -5,10 +5,8 @@ import {
   registerRequest,
   verifyTokenRequest,
 } from "../api/userAuth";
-import { User } from "../utils/types";
+import type { User } from "../utils/types";
 import Cookies from "js-cookie";
-import { check } from "zod";
-import { Navigate } from "react-router";
 
 interface AuthContextType {
   user: User[];
@@ -21,7 +19,7 @@ interface AuthContextType {
 }
 
 export const AuthContext = createContext<AuthContextType | undefined>(
-  undefined
+  undefined,
 );
 
 interface AuthProviderProps {
