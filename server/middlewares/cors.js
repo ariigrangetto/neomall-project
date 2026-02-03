@@ -1,5 +1,5 @@
 import cors from "cors";
-const ACCEPTED_ORIGINS = ["http://localhost:5173/"];
+const ACCEPTED_ORIGINS = ["http://localhost:5173"];
 
 export const corsMiddlewares = () => {
   return cors({
