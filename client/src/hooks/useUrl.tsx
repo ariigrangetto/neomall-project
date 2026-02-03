@@ -1,66 +1,69 @@
 import { useEffect, useState } from "react";
-import { useSearchParams } from "react-router";
-import type { FiltersType, Product } from "../utils/types.d.ts";
+import type { Product } from "../utils/types.d.ts";
 import { getProductsFiltered } from "../api/product.js";
+import { useFilters } from "./useFilters.tsx";
+
+const API = import.meta.env.VITE_API;
 
 const RESULT_PER_PAGE = 10;
 
 export const useUrl = () => {
-  const [searchParams, setSearchParams] = useSearchParams();
-  const [inputValue, setInputValue] = useState<string>("");
+  const { filters, setSearchParams, searchParams } = useFilters();
+
   const [loading, setLoading] = useState(false);
-  const [currentPage, setCurrentPage] = useState(1);
-
-  const [filters, setFilters] = useState<FiltersType>({
-    category: searchParams.get("category") || "",
-  });
-
+  const [currentPage, setCurrentPage] = useState(
+    Number(searchParams.get("page") || 1),
+  );
   const [filteredProducts, setFilteredProducts] = useState<Product[]>([]);
+
+  // const [filters, setFilters] = useState<FiltersType>({
+  //   category: searchParams.get("category") || "",
+  //   title: searchParams.get("title") || "",
+  // });
 
   useEffect(() => {
     async function fetchData() {
       try {
+        let baseUrl = `${API}/products`;
         setLoading(true);
-        let baseUrl = `http://localhost:8080/products`;
 
         const params = new URLSearchParams();
 
+        //append -> adds a new key-value pair to the existing URLSearchParams
         if (filters.category) {
-          params.append("category", filters.category);
+          params.set("category", filters.category);
         }
 
-        if (inputValue) {
-          params.append("title", inputValue);
+        if (filters.title) {
+          params.set("title", filters.title);
         }
+
+        setSearchParams(params);
 
         if (params.size !== 0) {
           baseUrl += `?${params.toString()}`;
         }
 
         const response = await getProductsFiltered(baseUrl);
+        const { data } = response;
+        console.log(data);
 
-        setFilteredProducts(response.data);
+        setFilteredProducts(data);
+        setCurrentPage(1);
+      } catch (error) {
+        console.error("Error fetching products", error);
+        setLoading(false);
       } finally {
         setLoading(false);
       }
     }
     fetchData();
-  }, [filters.category, inputValue]);
-
-  useEffect(() => {
-    setSearchParams(() => {
-      const params = new URLSearchParams();
-
-      if (filters.category) params.set("category", filters.category);
-
-      if (inputValue) params.set("title", inputValue);
-
-      return params;
-    });
-  }, [filters.category, inputValue]);
+  }, [filters.category, filters.title]);
 
   const handleChangePage = (page: number) => {
-    setCurrentPage(page);
+    const params = new URLSearchParams(searchParams);
+    params.set("page", page.toString());
+    setSearchParams(params);
   };
 
   const totalPages = Math.ceil(filteredProducts.length / RESULT_PER_PAGE);
@@ -68,17 +71,11 @@ export const useUrl = () => {
   const end = start + RESULT_PER_PAGE;
   const totalResult = filteredProducts.slice(start, end);
 
-  const handleUpdateInputSearch = (text: string) => {
-    setInputValue(text);
-  };
-
   return {
     handleChangePage,
     totalPages,
     loading,
-    handleUpdateInputSearch,
     totalResult,
-    setFilters,
     currentPage,
   };
 };
