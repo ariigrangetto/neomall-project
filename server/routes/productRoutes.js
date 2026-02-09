@@ -8,7 +8,7 @@ import {
 const productsRoutes = Router();
 
 productsRoutes.get("/", filterProducts);
-productsRoutes.get("/", getAllProducts);
+productsRoutes.get("/list", getAllProducts);
 productsRoutes.get("/:id", getProductById);
 
 export default productsRoutes;
