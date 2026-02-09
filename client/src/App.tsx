@@ -6,7 +6,6 @@ import Login from "./pages/Login.tsx";
 import Register from "./pages/Register.tsx";
 import ProtectedPath from "./components/ProtectedPath.tsx";
 import Profile from "./pages/Profile.tsx";
-import Header from "./components/Header.tsx";
 import { MainLayout } from "./layout/MainLayout.tsx";
 
 const Details = lazy(() => import("./pages/Details.tsx"));

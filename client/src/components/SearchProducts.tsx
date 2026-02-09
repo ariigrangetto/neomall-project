@@ -1,5 +1,4 @@
 import { useId, useRef, useState } from "react";
-import "./SearchProducts.css";
 import { Search } from "lucide-react";
 import { useFilters } from "../hooks/useFilters.tsx";
 
@@ -39,25 +38,33 @@ export default function SearchProducts() {
 
   return (
     <>
-      <div className='search-section'>
-        <div className='form-section'>
-          <form onSubmit={handleSubmit} className='filter-form'>
+      <div className='search-section flex justify-center m-auto mt-16'>
+        <div className='form-section flex justify-center m-auto'>
+          <form
+            onSubmit={handleSubmit}
+            className='filter-form flex rounded-2xl px-2 border-blue-500 border'
+          >
             <input
               type='text'
               value={text}
               placeholder='Essence Mascara Lash Princess'
               onChange={handleChangeInputSearch}
               name={idText}
-              className='filter-input'
+              className='filter-input text-white w-2xs  p-2 rounded outline-none bg-black'
             />
             <button type='submit' className='filter-search-btn'>
-              <Search size={18} />
+              <Search size={18} color='white' />
             </button>
           </form>
         </div>
 
-        <div className='select-section'>
-          <select name={selectId} id={selectId} onChange={handleSelectCategory}>
+        <div className='select-section flex justify-center m-auto  rounded-2xl px-2 border-blue-500 border py-2 text-white'>
+          <select
+            name={selectId}
+            id={selectId}
+            onChange={handleSelectCategory}
+            className='bg-black'
+          >
             <option value=''>Category</option>
             <option value='beauty'>Beauty</option>
             <option value='fragrances'>Fragrances</option>

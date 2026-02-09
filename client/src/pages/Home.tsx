@@ -1,31 +1,41 @@
 import { Link } from "react-router";
-import "./Home.css";
 import Footer from "../components/Footer.tsx";
 
 export default function Home() {
   return (
     <>
-      <main className='home-main'>
-        <title>NeoMall</title>
-        <section className='home-section'>
-          <div className='home-presentation'>
-            <div className='home-icon-title'>
-              <img src='/icon.svg' alt='app icon' className='home-icon' />
-              <h3>NeoMall</h3>
-            </div>
-            <div className='home-name-presentation'>
-              <h2 className='home-title'>
+      <div className='min-h-screen flex flex-col'>
+        <main className='home-main flex flex-col flex-1  items-center overscroll-y-none mb-0'>
+          <title>NeoMall</title>
+          <div className='home-icon-title flex items-center mb-8 justify-center  mt-60 '>
+            <img
+              src='/icon.svg'
+              alt='app icon'
+              className='home-icon justify-center flex m-auto w-36  '
+            />
+            <h3 className='text-white items-center mt-2 font-bold text-4xl'>
+              NeoMall
+            </h3>
+          </div>
+          <section className='home-section flex flex-col items-center text-center '>
+            <div className='home-name-presentation relative'>
+              <h2 className='home-title text-3xl font-bold mb-4 text-white '>
                 Your shopping <br></br> experience, redefined.
               </h2>
-              <p>The future of online shopping, simplified for you</p>
+              <p className='text-white'>
+                The future of online shopping, simplified for you
+              </p>
             </div>
-          </div>
-          <Link to='/products' className='btn'>
-            Explore products
-          </Link>
-        </section>
-      </main>
-      <Footer />
+            <Link
+              to='/products'
+              className='btn mt-6 px-6 py-2 bg-blue-500 rounded text-white border-0 pointer hover:text-white hover:bg-blue-900 hover:border-0 hover:duration-300'
+            >
+              Explore products
+            </Link>
+          </section>
+        </main>
+        <Footer />
+      </div>
     </>
   );
 }
